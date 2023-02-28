@@ -9,11 +9,13 @@ function App() {
     setMovies(movies.filter((movie) => movie._id != id));
   };
 
-  return (
-    <div>
-      <main className="container m-5">
-        <h1>Showing {movies.length} movies in the databse.</h1>
+  const renderTable = () => {
+    if (movies.length === 0)
+      return <h1>There are no movies in the database!</h1>;
 
+    return (
+      <div>
+        <h1>There are {movies.length} movies in the database.</h1>
         <table className="table">
           <thead>
             <tr>
@@ -46,7 +48,13 @@ function App() {
             })}
           </tbody>
         </table>
-      </main>
+      </div>
+    );
+  };
+
+  return (
+    <div>
+      <main className="container m-5">{renderTable()}</main>
     </div>
   );
 }
