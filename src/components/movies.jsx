@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { getMovies } from "./../fakeMovieService";
+import Like from "./common/like";
 
 function Movies() {
   const [movies, setMovies] = useState(getMovies());
 
   const handleDeletion = (id) => {
-    setMovies(movies.filter((movie) => movie._id != id));
+    setMovies(movies.filter((movie) => movie._id !== id));
   };
 
   if (movies.length === 0) return <h1>There are no movies in the database!</h1>;
@@ -31,6 +32,9 @@ function Movies() {
                 <td>{movie.genre.name}</td>
                 <td>{movie.numberInStock}</td>
                 <td>{movie.dailyRentalRate}</td>
+                <td>
+                  <Like liked={movie.liked} />
+                </td>
                 <td>
                   <button
                     type="button"
