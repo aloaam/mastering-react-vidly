@@ -5,6 +5,13 @@ import Like from "./common/like";
 function Movies() {
   const [movies, setMovies] = useState(getMovies());
 
+  const handleLike = (movie) => {
+    const index = movies.indexOf(movie);
+    const newMovies = [...movies];
+    newMovies[index].liked = !newMovies[index].liked;
+    setMovies(newMovies);
+  };
+
   const handleDeletion = (id) => {
     setMovies(movies.filter((movie) => movie._id !== id));
   };
@@ -33,7 +40,7 @@ function Movies() {
                 <td>{movie.numberInStock}</td>
                 <td>{movie.dailyRentalRate}</td>
                 <td>
-                  <Like liked={movie.liked} />
+                  <Like liked={movie.liked} onClick={() => handleLike(movie)} />
                 </td>
                 <td>
                   <button
