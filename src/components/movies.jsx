@@ -1,9 +1,20 @@
 import React, { useState } from "react";
 import { getMovies } from "./../fakeMovieService";
 import Like from "./common/like";
+import Pagination from "./common/pagination";
+import paginate from "../utils/paginate";
 
 function Movies() {
+  const MOVIES_PER_PAGE = 4;
+  const START_PAGE = 1;
   const [movies, setMovies] = useState(getMovies());
+  const [pageSize] = useState(MOVIES_PER_PAGE);
+  const [currentPage, setCurrentPage] = useState(START_PAGE);
+
+  const handlePageChange = (pageNumber) => {
+    console.log(pageNumber);
+    setCurrentPage(pageNumber);
+  };
 
   const handleLike = (movie) => {
     const index = movies.indexOf(movie);
@@ -19,7 +30,7 @@ function Movies() {
   if (movies.length === 0) return <h1>There are no movies in the database!</h1>;
 
   return (
-    <div>
+    <React.Fragment>
       <h1>There are {movies.length} movies in the database.</h1>
       <table className="table">
         <thead>
@@ -32,7 +43,7 @@ function Movies() {
           </tr>
         </thead>
         <tbody>
-          {movies.map((movie, ix) => {
+          {paginate(movies, currentPage, pageSize).map((movie, ix) => {
             return (
               <tr key={ix}>
                 <th scope="row">{movie.title}</th>
@@ -56,7 +67,13 @@ function Movies() {
           })}
         </tbody>
       </table>
-    </div>
+      <Pagination
+        onPageChange={handlePageChange}
+        currentPage={currentPage}
+        itemsCount={movies.length}
+        pageSize={pageSize}
+      />
+    </React.Fragment>
   );
 }
 
