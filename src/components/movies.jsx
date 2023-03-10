@@ -13,8 +13,8 @@ function Movies() {
   const [movies, setMovies] = useState(getMovies());
   const [pageSize] = useState(MOVIES_PER_PAGE);
   const [currentPage, setCurrentPage] = useState(START_PAGE);
-  const [genres, setGenres] = useState(getGenres());
-  const [currentGenre, setCurrentGenre] = useState();
+  const [genres, setGenres] = useState([ {name: All_GENRES} , ...getGenres()]);
+  const [currentGenre, setCurrentGenre] = useState(All_GENRES);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -22,6 +22,7 @@ function Movies() {
 
   const handleGenreSelect = (item) => {
     setCurrentGenre(item.name);
+    setCurrentPage(START_PAGE)
   };
 
   const handleLike = (movie) => {
@@ -35,7 +36,7 @@ function Movies() {
     setMovies(movies.filter((movie) => movie._id !== id));
   };
 
-  const filtered = currentGenre
+  const filtered = currentGenre != All_GENRES
     ? movies.filter((m) => m.genre.name === currentGenre)
     : movies;
 
