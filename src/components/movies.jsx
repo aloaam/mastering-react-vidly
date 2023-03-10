@@ -5,6 +5,7 @@ import Like from "./common/like";
 import Pagination from "./common/pagination";
 import paginate from "../utils/pagintate";
 import ListGroup from "./common/listGroup";
+import MoviesTable from "./moviesTables";
 
 function Movies() {
   const MOVIES_PER_PAGE = 4;
@@ -55,45 +56,12 @@ function Movies() {
         />
       </div>
       <div className="col">
-        <h1>There are {filtered.length} movies in the database.</h1>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Genre</th>
-              <th scope="col">Stock</th>
-              <th scope="col">Rate</th>
-              <th scope="col"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {moviesToRender.map((movie, ix) => {
-              return (
-                <tr key={ix}>
-                  <th scope="row">{movie.title}</th>
-                  <td>{movie.genre.name}</td>
-                  <td>{movie.numberInStock}</td>
-                  <td>{movie.dailyRentalRate}</td>
-                  <td>
-                    <Like
-                      liked={movie.liked}
-                      onClick={() => handleLike(movie)}
-                    />
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      className="btn btn-danger btn-sm"
-                      onClick={() => handleDeletion(movie._id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <MoviesTable 
+          filtered={filtered}
+          moviesToRender={moviesToRender}
+          handleLike={handleLike}
+          handleDeletion={handleDeletion}
+        />
         <Pagination
           onPageChange={handlePageChange}
           currentPage={currentPage}
