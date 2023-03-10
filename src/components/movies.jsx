@@ -14,7 +14,7 @@ function Movies() {
   const [movies, setMovies] = useState(getMovies());
   const [pageSize] = useState(MOVIES_PER_PAGE);
   const [currentPage, setCurrentPage] = useState(START_PAGE);
-  const [genres, setGenres] = useState([ {name: All_GENRES} , ...getGenres()]);
+  const [genres, setGenres] = useState([ {_id: "", name: All_GENRES} , ...getGenres()]);
   const [currentGenre, setCurrentGenre] = useState(All_GENRES);
 
   const handlePageChange = (pageNumber) => {
@@ -36,6 +36,10 @@ function Movies() {
   const handleDeletion = (id) => {
     setMovies(movies.filter((movie) => movie._id !== id));
   };
+
+  const handleSort = (path) => {
+    return console.log(path)
+  }
 
   const filtered = currentGenre != All_GENRES
     ? movies.filter((m) => m.genre.name === currentGenre)
@@ -59,8 +63,9 @@ function Movies() {
         <MoviesTable 
           filtered={filtered}
           moviesToRender={moviesToRender}
-          handleLike={handleLike}
+          onLike={handleLike}
           handleDeletion={handleDeletion}
+          onSort={handleSort}
         />
         <Pagination
           onPageChange={handlePageChange}

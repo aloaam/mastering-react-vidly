@@ -6,7 +6,7 @@ class MoviesTable extends React.Component {
 
     render() { 
 
-        const { filtered, moviesToRender, handleLike, handleDeletion } = this.props
+        const { filtered, moviesToRender, onLike, handleDeletion, onSort } = this.props
 
         return (
             <div>
@@ -14,11 +14,10 @@ class MoviesTable extends React.Component {
         <table className="table">
           <thead>
             <tr>
-              <th scope="col">Title</th>
-              <th scope="col">Genre</th>
-              <th scope="col">Stock</th>
-              <th scope="col">Rate</th>
-              <th scope="col"></th>
+              <th onClick={() => onSort('title')} scope="col">Title</th>
+              <th onClick={() => onSort('genre.name')} scope="col">Genre</th>
+              <th onClick={() => onSort('numberInStock')} scope="col">Stock</th>
+              <th onClick={() => onSort('dailyRentalRate')} scope="col">Rate</th>
             </tr>
           </thead>
           <tbody>
@@ -32,7 +31,7 @@ class MoviesTable extends React.Component {
                   <td>
                     <Like
                       liked={movie.liked}
-                      onClick={() => handleLike(movie)}
+                      onClick={() => onLike(movie)}
                     />
                   </td>
                   <td>
