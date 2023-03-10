@@ -8,8 +8,6 @@ class Pagination extends Component {
   render() {
     const { itemsCount, pageSize, onPageChange, currentPage } = this.props;
 
-    console.log(currentPage);
-
     const pagesCount = Math.ceil(itemsCount / pageSize);
 
     const pages = _.range(1, pagesCount + 1);
@@ -21,6 +19,7 @@ class Pagination extends Component {
           {pages.map((pageNumber) => {
             return (
               <li
+                style={{ cursor: "pointer" }}
                 key={pageNumber}
                 className={
                   pageNumber === currentPage ? "page-item active" : "page-item"
