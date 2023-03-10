@@ -3,7 +3,7 @@ import { getMovies } from "./../fakeMovieService";
 import { getGenres } from "../fakeGenreService";
 import Like from "./common/like";
 import Pagination from "./common/pagination";
-import paginate from "../utils/paginate";
+import paginate from "../utils/pagintate";
 import ListGroup from "./common/listGroup";
 
 function Movies() {
